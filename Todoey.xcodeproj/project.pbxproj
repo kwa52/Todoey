@@ -66,7 +66,6 @@
 			isa = PBXGroup;
 			children = (
 				35C0A1DA203F42AA009F74D1 /* Assets.xcassets */,
-				35C0A1DF203F42AA009F74D1 /* Info.plist */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -95,6 +94,7 @@
 				3546B2AF203F83230054F9BB /* Controllers */,
 				3546B2AE203F83000054F9BB /* Data Model */,
 				3546B2B1203F83580054F9BB /* Supporting Files */,
+				35C0A1DF203F42AA009F74D1 /* Info.plist */,
 			);
 			path = Todoey;
 			sourceTree = "<group>";

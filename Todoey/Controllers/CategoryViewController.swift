@@ -23,7 +23,6 @@ class CategoryViewController: SwipeTableViewController {
         
         loadCategory()
         
-        tableView.rowHeight = 80
     }
 
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
@@ -121,5 +120,3 @@ class CategoryViewController: SwipeTableViewController {
         }
     }
 }
-
-

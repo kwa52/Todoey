@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import RealmSwift
 
-class TodoListViewController: UITableViewController {
+class TodoListViewController: SwipeTableViewController {
     
     let realm = try! Realm()
     
@@ -53,7 +53,7 @@ class TodoListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // reuse a cell object for return
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TodoItemCell", for: indexPath)
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
         if let item = todoItems?[indexPath.row] {
             cell.textLabel?.text = item.title
@@ -156,42 +156,25 @@ class TodoListViewController: UITableViewController {
     //MARK: - Model Manipulation methods
     //
     
-//    // save the database
-//    func saveItems() {
-//        do {
-//            try context.save()
-//        }
-//        catch {
-//            print("Error encoding array, \(error)")
-//        }
-//        tableView.reloadData()
-//    }
-    
-    // give the method the ability to be called with default value which is no parameter as well
     func loadItems() {
-
-//        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
-//
-//        // To avoid unwrap nil predicate parameter
-//        if let additionalPredicate = predicate {
-//            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, additionalPredicate])
-//        } else {
-//            request.predicate = categoryPredicate
-//        }
-//
-////        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, categoryPredicate])
-////
-////        request.predicate = compoundPredicate
-//
-//        do {
-//            itemArray = try context.fetch(request)
-//        } catch {
-//            print(error)
-//        }
         
         todoItems = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
 
         tableView.reloadData()
+    }
+    
+    // swipe action method
+    override func updateModel(at indexPath: IndexPath) {
+        
+        if let itemToDelete = todoItems?[indexPath.row] {
+            do {
+                try realm.write {
+                    realm.delete(itemToDelete)
+                }
+            } catch {
+                print(error)
+            }
+        }
     }
 }
 
